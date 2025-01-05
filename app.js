@@ -26,12 +26,14 @@ const studentsRouter = require('./pages/students');
 const gradesRouter = require('./pages/grades')
 const lecturersRouter = require('./pages/lecturer');
 const updateStudentRouter = require('./pages/updateStudent');
+const addStudentRouter = require('./pages/addStudent');
 
 // Routes
 app.use('/students', studentsRouter);
 app.use('/grades', gradesRouter);
 app.use('/lecturer', lecturersRouter);
 app.use('/students/update', updateStudentRouter);
+app.use('/students/add', addStudentRouter);
 
 // Start Server
 app.listen(port, () => {
