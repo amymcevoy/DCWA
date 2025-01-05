@@ -68,7 +68,18 @@ router.get('/delete/:lid', async (req, res) => {
     if (!lecturer) {
         return res.status(404).send('<h1>Lecturer not found.</h1>');
     } 
-    console.log(`Lecturer infor fetched successfully`);
+
+    const checkModulesQuery = 'SELECT * FROM module WHERE lecturer = ?';
+    const [modules] = await mysql.query(checkModulesQuery, [lecturerId]);
+
+    if (modules.length > 0) {
+        // Lecturer has associated modules; prevent deletion
+        return res.send(`
+            <h1>Cannot delete </h1>
+            <p>Lecturer has associated modules </p>
+            <a href="/lecturers">Back to Lecturers Page</a>
+        `);
+    }
     }
     catch (err) {
         console.error('Error deleting lecturer:', err);
