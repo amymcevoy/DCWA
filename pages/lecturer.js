@@ -50,9 +50,22 @@ router.get('/', async (req, res) => {
         res.send(html);
     } catch (err) {
         console.error('Error fetching lecturers:', err);
-        res.status(500).send('<h1>Failed to fetch lecturers</h1><a href="/">Back to Home</a>');
+        res.status(500).send('<h1>Failed to fetch lecturers</h1>');
     }
+
 });
 
+// Delete lecturer route
+router.get('/delete/:lid', async (req, res) => {
+    const lecturerId = req.params.lid;
+
+    try {
+        const db = await connectMongo(); // Connect to MongoDB
+        console.log(`Deleting lecturere`);
+    } catch (err) {
+        console.error('Error deleting lecturer:', err);
+        res.status(500).send('<h1>Server error</h1>');
+    }
+});
 
 module.exports = router;
