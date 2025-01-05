@@ -29,4 +29,31 @@ router.get('/', (req, res) => {
     `;
     res.send(html);
 });
+
+// POST route to handle form submission for adding a new student
+// Also taken from studentUpdate
+router.post('/', async (req, res) => {
+    const { sid, name, age } = req.body;
+
+    // Validation
+    const errors = [];
+    if (!sid || sid.length < 3) {
+        errors.push('Student ID must be at least 3 characters long.');
+    }
+    if (!name || name.length < 2) {
+        errors.push('Name must be at least 2 characters long.');
+    }
+    if (!age || age <= 18) {
+        errors.push('Age must be greater than 18.');
+    }
+    try {
+        const query = 'INSERT INTO student (sid, name, age) VALUES (?, ?, ?)';
+        await mysql.query(query, [sid, name, age]);
+        res.redirect('/students');
+    } catch (err) {
+        console.error('Error adding new student:', err);
+        res.status(500).send('Failed to add new student.');
+    }
+});
+
 module.exports = router;
