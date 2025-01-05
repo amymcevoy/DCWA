@@ -38,20 +38,26 @@ mongoClient.connect(err => {
 });
 
 app.get('/', (req, res) => {
-  res.send('G00413220');
+  res.send(`
+
+        <h1>G00413220</h1>
+        <ul>
+            <li><a href="/students">Students</a></li>
+            <li><a href="/grades">Grades</a></li>
+            <li><a href="/lecturers">Lecturers</a></li>
+        </ul>
+    `);
 });
 
 // Routers
-const homeRouter = require('./pages/home');
 const studentsRouter = require('./pages/students');
 const gradesRouter = require('./pages/grades')
-const lecturersRouter = require('./pages/lecturers');
+const lecturersRouter = require('./pages/lecturer');
 
 // Routes
-app.use('/', homeRouter);
-app.use('/students', studentRoutes);
+app.use('/students', studentsRouter);
 app.use('/grades', gradesRouter);
-app.use('/lecturers', lecturersRouter);
+app.use('/lecturer', lecturersRouter);
 
 // Start Server
 app.listen(port, () => {
