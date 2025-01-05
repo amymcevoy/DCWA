@@ -37,18 +37,18 @@ mongoClient.connect(err => {
   console.log('Connected to MongoDB');
 });
 
-// Define Routes
 app.get('/', (req, res) => {
   res.send('G00413220');
 });
 
-app.get('/', (req, res) => {
-    
- });
+// Routers
+const studentsRouter = require('./routes/students');
+const gradesRouter = require('./routes/grades')
 
-const studentRoutes = require('./pages/students');
+// Routes
 app.use('/students', studentRoutes);
-  
+app.use('/grades', gradesRouter);
+
 // Start Server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
