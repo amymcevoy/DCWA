@@ -1,18 +1,25 @@
 const { MongoClient } = require('mongodb');
+require('dotenv').config(); // Load variables
 
-const url = 'mongodb://localhost:27017';
-const dbName = 'proj2024MongoDB';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
+const dbName = process.env.MONGO_DB || 'proj2024MongoDB';
 
-async function connect() {
+let db; 
+
+// Define the connectMongo function
+const connectMongo = async () => {
+    if (db) return db; // Return connection
     try {
+        const client = new MongoClient(mongoUrl, { useUnifiedTopology: true });
         await client.connect();
-        console.log("Connected to MongoDB");
-        const db = client.db(dbName);
+        console.log(`Connected to MongoDB: ${dbName}`);
+        db = client.db(dbName); // Connect to database
         return db;
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);
+        throw err; 
     }
-}
+};
 
-module.exports = connect;
+module.exports = connectMongo;
   
