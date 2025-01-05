@@ -20,6 +20,7 @@ router.get('', async (req, res) => {
                 <head>
                     <meta charset="UTF-8">
                     <title>Students List</title>
+                    <a href="/students/add">Add Student</a> | <a href="/">Home</a>
                     <style>
                         table {
                             width: 100%;
@@ -48,6 +49,7 @@ router.get('', async (req, res) => {
                                     <td>${student.sid}</td>
                                     <td>${student.name}</td>
                                     <td>${student.age}</td>
+                                    <td><a href="/students/update/${student.sid}">Update</a></td>
                                 </tr>
                             `).join('')}
                         </tbody>
