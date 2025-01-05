@@ -39,4 +39,18 @@ router.get('/:sid', async (req, res) => {
     }
 });
 
+
+// POST route to handle the form submission
+router.post('/:sid', async (req, res) => {
+    const { sid } = req.params;
+    const { name, age } = req.body;
+    try {
+        await mysql.query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid]);
+        res.redirect('/students');
+    } catch (err) {
+        console.error('Failed to update student:', err);
+        res.status(500).send('Failed to update student.');
+    }
+});
+
 module.exports = router;
