@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const MongoClient  = require('mongodb').MongoClient;
 
 const app = express();
 const port = 3004;
@@ -24,6 +25,16 @@ pool.getConnection((err, connection) => {
     connection.release(); // When done with the connection, release it.
   });
   
+//MongoDB connection setup
+const mongoUrl = 'mongodb://localhost:27017';
+const mongoClient = new MongoClient(mongoUrl, { useUnifiedTopology: true });
+let mongoDB;
+
+mongoClient.connect(err => {
+  if (err) throw err;
+  mongoDB = mongoClient.db('proj2024MongoDB'); 
+  console.log('Connected to MongoDB');
+});
 
 // Define Routes
 app.get('/', (req, res) => {
