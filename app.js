@@ -24,6 +24,7 @@ pool.getConnection((err, connection) => {
     console.log('Connected');
     connection.release(); // When done with the connection, release it.
   });
+
   
 //MongoDB connection setup
 const mongoUrl = 'mongodb://localhost:27017';
@@ -38,9 +39,16 @@ mongoClient.connect(err => {
 
 // Define Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to the Project!');
+  res.send('G00413220');
 });
 
+app.get('/', (req, res) => {
+    
+ });
+
+const studentRoutes = require('./pages/students');
+app.use('/students', studentRoutes);
+  
 // Start Server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
