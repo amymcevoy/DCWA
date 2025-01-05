@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const MongoClient  = require('mongodb').MongoClient;
+const mysql = require('mysql2');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 const port = 3004;
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 const pool = mysql.createPool({
   connectionLimit : 10,
   host: 'localhost',
-  user: '',  
+  user: 'root',  
   password: 'root',  
   database: 'proj2024mysql'
 });
@@ -27,7 +27,7 @@ pool.getConnection((err, connection) => {
   
 //MongoDB connection setup
 const mongoUrl = 'mongodb://localhost:27017';
-const mongoClient = new MongoClient(mongoUrl, { useUnifiedTopology: true });
+const mongoClient = new MongoClient(mongoUrl);
 let mongoDB;
 
 mongoClient.connect(err => {
