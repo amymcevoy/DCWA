@@ -42,11 +42,13 @@ app.get('/', (req, res) => {
 });
 
 // Routers
+const homeRouter = require('./pages/home');
 const studentsRouter = require('./pages/students');
 const gradesRouter = require('./pages/grades')
 const lecturersRouter = require('./pages/lecturers');
 
 // Routes
+app.use('/', homeRouter);
 app.use('/students', studentRoutes);
 app.use('/grades', gradesRouter);
 app.use('/lecturers', lecturersRouter);
