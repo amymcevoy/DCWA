@@ -12,7 +12,7 @@ router.get('/:lid', async (req, res) => {
         const db = await connectMongo(); // Connect to MongoDB
         
         // Fetch the lecturers details from MongoDB
-         const lecturer = await db.collection('lecturers').findOne({ _id: new ObjectId(lecturerId) });
+         const lecturer = await db.collection('lecturers').findOne({ _id: lecturerId});
     
     if (!lecturer) {
         return res.status(404).send('<h1>Lecturer not found.</h1>');
@@ -29,12 +29,12 @@ router.get('/:lid', async (req, res) => {
             <a href="/lecturers">Back to Lecturers Page</a>
         `);
     }
-    const result = await db.collection('lecturers').deleteOne({ _id: new ObjectId(lecturerId) });
+    const result = await db.collection('lecturers').deleteOne({  _id: lecturerId});
 
     if (result.deletedCount === 0) {
         return res.status(404).send('<h1>Failed to delete lecturer</h1>');
     }
-    res.redirect('/lecturers');
+    res.redirect('/lecturer');
     }
     catch (err) {
         console.error('Error deleting lecturer:', err);
