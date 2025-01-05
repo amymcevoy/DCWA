@@ -57,9 +57,43 @@ router.post('/:sid', async (req, res) => {
         {
             errors.push('Age must be greater than 18');
         }
-        
+    if(errors.length> 0)
+       {
+        const errorHtml = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Update Student</title>
+        </head>
+        <body>
+            <h1>Update Student</h1>
+            ${errors.map(err => `<p style="color:red;">${err}</p>`).join('')}
+            <form action="/students/update/${sid}" method="post">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" value="${name}" required><br>
+                <label for="age">Age:</label><br>
+                <input type="number" id="age" name="age" value="${age}" required><br><br>
+                <button type="submit">Update</button>
+            </form>
+            <a href="/students">Back to Students</a>
+        </body>
+        </html>
+    `;
+    return res.send(errorHtml);
+       }
+
     try {
-        await mysql.query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid]);
+        const query = 'UPDATE student SET name = ?, age = ? WHERE sid = ?';
+        const[result] = await mysql.query(query,[name, age, sid]);
+
+        if (result.affectedRows === 0)
+        {
+            return res.status(404).send('<h1>Student not found or not found</h1>');
+        }
+
+
         res.redirect('/students');
     } catch (err) {
         console.error('Failed to update student:', err);
