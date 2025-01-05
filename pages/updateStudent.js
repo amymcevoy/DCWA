@@ -8,6 +8,7 @@ router.get('/:sid', async (req, res) => {
     try {
         const [results] = await mysql.query('SELECT * FROM student WHERE sid = ?', [sid]);
         const student = results[0];
+
         if (!student) {
             return res.status(404).send('Student not found.');
         }
@@ -17,6 +18,7 @@ router.get('/:sid', async (req, res) => {
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Update Student</title>
             </head>
             <body>
@@ -55,7 +57,7 @@ router.post('/:sid', async (req, res) => {
         {
             errors.push('Age must be greater than 18');
         }
-
+        
     try {
         await mysql.query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid]);
         res.redirect('/students');
