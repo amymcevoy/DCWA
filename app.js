@@ -25,11 +25,13 @@ app.get('/', (req, res) => {
 const studentsRouter = require('./pages/students');
 const gradesRouter = require('./pages/grades')
 const lecturersRouter = require('./pages/lecturer');
+const updateStudentRouter = require('./pages/updateStudent');
 
 // Routes
 app.use('/students', studentsRouter);
 app.use('/grades', gradesRouter);
 app.use('/lecturer', lecturersRouter);
+app.use('/students/update', updateStudentRouter);
 
 // Start Server
 app.listen(port, () => {

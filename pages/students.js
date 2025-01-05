@@ -49,7 +49,7 @@ router.get('', async (req, res) => {
                                     <td>${student.sid}</td>
                                     <td>${student.name}</td>
                                     <td>${student.age}</td>
-                                    <td><a href="/students/update/${student.sid}">Update</a></td>
+                                    <td><a href="/updateStudent/${student.sid}">Update</a></td>
                                 </tr>
                             `).join('')}
                         </tbody>
