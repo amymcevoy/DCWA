@@ -34,7 +34,7 @@ router.get('/',async (req, res) => {
           </head>
           <body>
               <h1>Grades</h1>
-              <a href="/">Back to Home</a> | <a href="/grades/add">Add Grade</a>
+              <a href="/">Back to Home</a>
               <table>
                   <thead>
                       <tr>
