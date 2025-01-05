@@ -42,12 +42,14 @@ app.get('/', (req, res) => {
 });
 
 // Routers
-const studentsRouter = require('./routes/students');
-const gradesRouter = require('./routes/grades')
+const studentsRouter = require('./pages/students');
+const gradesRouter = require('./pages/grades')
+const lecturersRouter = require('./pages/lecturers');
 
 // Routes
 app.use('/students', studentRoutes);
 app.use('/grades', gradesRouter);
+app.use('/lecturers', lecturersRouter);
 
 // Start Server
 app.listen(port, () => {
