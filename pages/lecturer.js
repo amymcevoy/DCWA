@@ -18,7 +18,20 @@ router.get('/', async (req, res) => {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Lecturers</title>
+                <style>
+                    table, th, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                    table {
+                        width: 100%;
+                        margin-top: 20px;
+                    }
+                </style>
             </head>
+
             <body>
                 <h1>Lecturers</h1>
                 <a href="/">Back to Home</a>
@@ -38,7 +51,7 @@ router.get('/', async (req, res) => {
                                 <td>${lecturer.name}</td>
                                 <td>${lecturer.did}</td>
                                 <td>
-                                    <a href="/lecturer/delete/${lecturer._id}">Delete</a>
+                                    <a href="/lecturers/delete/${lecturer._id}">Delete</a>
                                 </td>
                             </tr>
                         `).join('')}
