@@ -28,6 +28,7 @@ const gradesRouter = require('./pages/grades')
 const lecturersRouter = require('./pages/lecturer');
 const updateStudentRouter = require('./pages/updateStudent');
 const addStudentRouter = require('./pages/addStudent');
+const deleteLecturerRouter = require('./pages/deleteLecturer');
 
 // Routes
 app.use('/students', studentsRouter);
@@ -35,6 +36,7 @@ app.use('/grades', gradesRouter);
 app.use('/lecturer', lecturersRouter);
 app.use('/students/update', updateStudentRouter);
 app.use('/students/add', addStudentRouter);
+app.use('/lecturer/delete', deleteLecturerRouter);
 
 // Start Server
 app.listen(port, () => {

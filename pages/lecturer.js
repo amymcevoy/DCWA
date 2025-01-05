@@ -38,7 +38,7 @@ router.get('/', async (req, res) => {
                                 <td>${lecturer.name}</td>
                                 <td>${lecturer.did}</td>
                                 <td>
-                                    <a href="/lecturers/delete/${lecturer._id}">Delete</a>
+                                    <a href="/lecturer/delete/${lecturer._id}">Delete</a>
                                 </td>
                             </tr>
                         `).join('')}
@@ -53,38 +53,6 @@ router.get('/', async (req, res) => {
         res.status(500).send('<h1>Failed to fetch lecturers</h1>');
     }
 
-});
-
-// Delete lecturer route
-router.get('/delete/:lid', async (req, res) => {
-    const lecturerId = req.params.lid;
-
-    try {
-        const db = await connectMongo(); // Connect to MongoDB
-        
-        // Fetch the lecturers details from MongoDB
-         const lecturer = await db.collection('lecturers').findOne({ _id: new ObjectId(lecturerId) });
-    
-    if (!lecturer) {
-        return res.status(404).send('<h1>Lecturer not found.</h1>');
-    } 
-
-    const checkModulesQuery = 'SELECT * FROM module WHERE lecturer = ?';
-    const [modules] = await mysql.query(checkModulesQuery, [lecturerId]);
-
-    if (modules.length > 0) {
-        // Lecturer has associated modules; prevent deletion
-        return res.send(`
-            <h1>Cannot delete </h1>
-            <p>Lecturer has associated modules </p>
-            <a href="/lecturers">Back to Lecturers Page</a>
-        `);
-    }
-    }
-    catch (err) {
-        console.error('Error deleting lecturer:', err);
-        res.status(500).send('<h1>Server error</h1>');
-    }
 });
 
 module.exports = router;
