@@ -61,8 +61,16 @@ router.get('/delete/:lid', async (req, res) => {
 
     try {
         const db = await connectMongo(); // Connect to MongoDB
-        console.log(`Deleting lecturere`);
-    } catch (err) {
+        
+        // Fetch the lecturers details from MongoDB
+         const lecturer = await db.collection('lecturers').findOne({ _id: new ObjectId(lecturerId) });
+    
+    if (!lecturer) {
+        return res.status(404).send('<h1>Lecturer not found.</h1>');
+    } 
+    console.log(`Lecturer infor fetched successfully`);
+    }
+    catch (err) {
         console.error('Error deleting lecturer:', err);
         res.status(500).send('<h1>Server error</h1>');
     }
