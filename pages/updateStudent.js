@@ -44,6 +44,18 @@ router.get('/:sid', async (req, res) => {
 router.post('/:sid', async (req, res) => {
     const { sid } = req.params;
     const { name, age } = req.body;
+
+     // Validation
+     const errors = [];
+    if (!name || name.length < 2) 
+        {
+           errors.push('Name must be at least 2 characters long');
+        }
+    if (!age || age <= 18)
+        {
+            errors.push('Age must be greater than 18');
+        }
+
     try {
         await mysql.query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid]);
         res.redirect('/students');
